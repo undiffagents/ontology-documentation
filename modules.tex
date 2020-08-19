@@ -1,0 +1,378 @@
+\chapter{Modules}
+\label{sec:mods}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We list the individual modules of the ontology, together with their axioms and explanations thereof. Each axiom is listed only once (for now), i.e. some axioms pertaining to a module may be found in the axiom set listed for an earlier listed module. Schema diagrams are provided throughout, but the reader should keep in mind that while schema diagrams are very useful for understanding an ontology \cite{odp-documentation}, they are also inherently ambiguous.
+
+\section*{Primer on Ontology Axioms}
+
+Logical axioms are presented (mostly) in description logic notation, which can be directly translated into the Web Ontology Language OWL \cite{FOST}. We use description logic notation because it is, in the end, easier for humans to read than any of the other serializations.\footnote{Preliminary results supporting this claim can be found in \cite{ShimizuMS}.} 
+
+Logical axioms serve many purposes in ontology modeling and engineering \cite{HitzlerK16};  in our context, the primary reason why we choose a strong axiomatization is to disambiguate the ontology.
+
+Almost all axioms which are part of the Enslaved Ontology are of the straightforward and local types. We will now describe these types in more detail, as it will make it much easier to understand the axiomatization of the Enslaved Ontology.
+
+\bigskip
+
+\begin{figure}[thb]
+\begin{center}
+\includegraphics[width=.3\textwidth]{resources/02-ARB}
+\caption{Generic node-edge-node schema diagram for explaining systematic axiomatization.}\label{fig:rec-ARB}
+\end{center}
+\end{figure}
+
+There is a systematic way to look at each node-edge-node triple in a schema diagram in order to decide on some of the axioms which should be added: Given a node-edge-node triple with nodes $A$ and $B$ and edge $R$ from $A$ to $B$, as depicted in Figure \ref{fig:rec-ARB}, we check all of the following axioms whether they should be included.\footnote{The OWLAx Prot\'eg\'e plug-in \cite{SarkerKH16} provides a convenient interface for adding these axioms.} We list them in natural language, see Figure \ref{fig:generic-triple-axioms-DL} for the formal versions in description logic notation, and Figure \ref{fig:generic-triple-axioms-Manchester} for the same in Manchester syntax, where we also list our names for these axioms.
+\begin{compactenum}
+\item $A$ is a subClass of $B$.
+\item $A$ and $B$ are disjoint.
+\item The domain of $R$ is $A$.
+\item For every $B$ which has an inverse $R$-filler, this inverse $R$-filler is in $A$. In other words, the domain of $R$, scoped by $B$, is $A$.
+\item The range of $R$ is $B$.
+\item For every $A$ which has an $R$-filler, this $R$-filler is in $B$. In other words, the range of $R$, scoped by $A$, is $B$.
+\item For every $A$ there has to be an $R$-filler in $B$.
+\item For every $B$ there has to be an inverse $R$-filler in $A$.
+\item $R$ is functional.
+\item $R$ has at most one filler in $B$.
+\item For every $A$ there is at most one $R$-filler.
+\item For every $A$ there is at most one $R$-filler in $B$.
+\item $R$ is inverse functional.
+\item $R$ has at most one inverse filler in $A$.
+\item For every $B$ there is at most one inverse $R$-filler.
+\item For every $B$ there is at most one inverse $R$-filler in $A$.
+\item An $A$ may have an $R$-filler in $B$.
+\end{compactenum}
+
+Domain and range axoims are items 2--5 in this list. Items 6 and 7 are extistential axioms. Items 8--15 are about variants of functionality and inverse functionality. All axiom types except disjointness and those utilizing inverses also apply to datatype properties.
+
+\begin{figure}[tb]
+\begin{center}
+\begin{minipage}{.3\textwidth}
+\begin{compactenum}
+\item $A \sqsubseteq B$
+\item $A\sqcap B\sqsubseteq \bot$
+\item $\exists R.\top \sqsubseteq A$
+\item $\exists R.B\sqsubseteq A$
+\item $\top \sqsubseteq \forall R.B$ 
+\item $A\sqsubseteq \forall R.B$
+\end{compactenum}
+\end{minipage}
+\begin{minipage}{.3\textwidth}
+\begin{compactenum}
+\setcounter{enumi}{6}
+\item $A\sqsubseteq R.B$
+\item $B\sqsubseteq R^-.A$
+\item $\top \sqsubseteq \mathord{\leq} 1 R.\top$ 
+\item $\top \sqsubseteq \mathord{\leq} 1 R.B$
+\item $A\sqsubseteq \mathord{\leq} 1 R.\top$
+\item $A\sqsubseteq \mathord{\leq} 1 R.B$
+\end{compactenum}
+\end{minipage}
+\begin{minipage}{.3\textwidth}
+\begin{compactenum}
+\setcounter{enumi}{12}
+\item $\top \sqsubseteq \mathord{\leq} 1 R^-.\top$ 
+\item $\top \sqsubseteq \mathord{\leq} 1 R^-.A$
+\item $B \sqsubseteq \mathord{\leq} 1 R^-.\top$ 
+\item $B \sqsubseteq \mathord{\leq} 1 R^-.A$
+\item $A \sqsubseteq \mathord{\geq 0} R.B$
+\end{compactenum}
+\end{minipage}
+\caption{Most common axioms which could be produced from a single edge $R$ between nodes $A$ and $B$ in a schema diagram: description logic notation.}\label{fig:generic-triple-axioms-DL}
+\end{center}
+\end{figure}
+
+\begin{figure}[tb]
+\begin{compactenum}
+\item $A$ \textsf{SubClassOf} $B$ \hfill (subClass)
+\item $A$ \textsf{DisjointWith} $B$ \hfill (disjointness)
+\item $R$ \textsf{some} \texttt{owl:Thing} \textsf{SubClassOf} $A$ \hfill (domain)
+\item $R$ \textsf{some} $B$ \textsf{SubClassOf} $A$ \hfill (scoped domain)
+\item \texttt{owl:Thing} \textsf{SubClassOf} $R$ \textsf{only} $B$ \hfill (range)
+\item $A$ \textsf{SubClassOf} $R$ \textsf{only} $B$ \hfill (scoped range)
+\item $A$ \textsf{SubClassOf} $R$ \textsf{some} $B$ \hfill (existential)
+\item $B$ \textsf{SubClassOf inverse} $R$ \textsf{some} $A$ \hfill (inverse existential)
+\item \texttt{owl:Thing} \textsf{SubClassOf} $R$ \textsf{max} $1$ \texttt{owl:Thing} \hfill (functionality)
+\item \texttt{owl:Thing} \textsf{SubClassOf} $R$ \textsf{max} $1$ $B$ \hfill (qualified functionality)
+\item $A$ \textsf{SubClassOf} $R$ \textsf{max} $1$ \texttt{owl:Thing} \hfill (scoped functionality)
+\item $A$ \textsf{SubClassOf} $R$ \textsf{max} $1$ $B$ \hfill (qualified scoped functionality)
+\item \texttt{owl:Thing} \textsf{SubClassOf inverse} $R$ \textsf{max} $1$ \texttt{owl:Thing} \hfill (inverse functionality)
+\item \texttt{owl:Thing} \textsf{SubClassOf inverse} $R$ \textsf{max} $1$ $A$ \hfill (inverse qualified functionality)
+\item $B$ \textsf{SubClassOf inverse} $R$ \textsf{max} $1$ \texttt{owl:Thing} \hfill (inverse scoped functionality)
+\item $B$ \textsf{SubClassOf inverse} $R$ \textsf{max} $1$ $A$ \hfill (inverse qualified scoped functionality)
+\item $A$ \textsf{SubClassOf} $R$ \textsf{min} $0$ $B$ \hfill (structural tautology)
+\end{compactenum}
+\caption{Most common axioms which could be produced from a single edge $R$ between nodes $A$ and $B$ in a schema diagram: Manchester syntax.}\label{fig:generic-triple-axioms-Manchester}
+\end{figure}
+
+Structural tautologies are, indeed, tautologies, i.e., they do not carry any formal logical content. However as argued in \cite{HitzlerK16} they can help humans to understand the ontology, by indicating \emph{possible} relationships, i.e., relationships intended by the modeler which, however, cannot be cast into non-tautological axioms.
+
+\section*{Explanations Regarding Schema Diagrams}
+
+We utilize schema diagrams to visualize the ontology. In our experience, simple diagrams work best for this purpose. The reader needs to bear in mind, though, that these diagrams are ambiguous and incomplete visualizations of the ontology (or module), as the actual ontology (or module) is constituted by the set of axioms provided. 
+
+We use the following visuals in our diagrams:
+
+\begin{description}
+\item[rectangular box with solid frame and orange fill:] a class
+\item[rectangual box with dashed frame and blue fill:] a module, which is described in more detail elsewhere in the document
+\item[rectangular box with dashed frame and purple fill:] a set of URIs constituting a controlled vocabulary
+\item[oval with solid frame and yellow fill:] a data type
+\item[arrow with white head and no label:] a subClass relationship
+\item[arrow with solid tip and label:] a relationship (or property) other than a subClass relationship
+\end{description}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Module Overview}
+\label{ssec:modules}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The following are the modules which together constitute the Uagent Ontology. Each of them will be presented in detail further below, though in different sequence. The Domain Ontology for Instruction captures instructions for a specific cognitive agent task called ISR-MATB. Currently, the ontology supports the memory of a cognitive agent by adding structure to its knowledge and providing new varieties of query-like recall.
+
+\begin{description}
+\item[Action]
+\item[Affordance]
+\item[Instruction]
+\item[ISR-MATBExperiment]
+\item[Item]
+\item[SituationDescription]
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Action}
+\label{ssec:action}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=.8\textwidth]{resources/Action.pdf}
+\end{center}
+\caption{Schema Diagram for the \textsf{Action} module.}
+\label{fig:action}
+\end{figure}
+
+\subsubsection*{Axioms:}
+
+\begin{align}
+\textsf{Action} &\sqsubseteq \mathord{=}1\textsf{ofType.ActionType}
+\end{align}
+
+\subsubsection*{Explanation of axioms above:}
+
+\begin{enumerate}
+\item Exact cardinality. An \textsf{Action} has exactly one \textsf{ActionType}.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Affordance}
+\label{ssec:affordance}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=.8\textwidth]{resources/Affordance.pdf}
+\end{center}
+\caption{Schema Diagram for the \textsf{Affordance} module.}
+\label{fig:affordance}
+\end{figure}
+
+\subsubsection*{Axioms:}
+
+\begin{align}
+\textsf{Affordance} &\sqsubseteq =1~\textsf{ofType.AffordanceType}
+\end{align}
+
+\subsubsection*{Explanation of axioms above:}
+
+\begin{enumerate}
+\item Exact cardinality. An \textsf{Affordance} has exactly one \textsf{AffordanceType}.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Instruction}
+\label{ssec:instruction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=.8\textwidth]{resources/Instruction.pdf}
+\end{center}
+\caption{Schema Diagram for the \textsf{Instruction} module.}
+\label{fig:instruction}
+\end{figure}
+
+\subsubsection*{Axioms:}
+
+\begin{align}
+\textsf{ActionInstruction} &\sqsubseteq \textsf{Instruction} \\
+\textsf{ActionInstruction} &\sqsubseteq \forall \textsf{prescribes.TransitionDescription} \\
+\top &\sqsubseteq \forall \textsf{asString.xsd:string} \\
+\textsf{Instruction} &\sqsubseteq \mathord{\geq}0~\textsf{asString.xsd:string} \\
+\textsf{DescriptionInstruction} &\sqsubseteq \textsf{Instruction} \\
+\textsf{DescriptionInstruction} &\sqsubseteq \forall \textsf{contributesTo.SituationDescription} \\
+\textsf{TransitionDescription} &\sqsubseteq \forall \textsf{hasPreSituationDescription.SituationDescription} \\
+\textsf{TransitionDescription} &\sqsubseteq \forall \textsf{hasPostSituationDescription.SituationDescription} 
+\end{align}
+
+\subsubsection*{Explanation of axioms above:}
+
+\begin{enumerate}
+\item Subclass. Every \textsf{ActionInstruction} is an \textsf{Instruction}.
+\item Scoped Range. The range of \textsf{prescribes} is TransitionDescription, scoped by \textsf{ActionInstruction}.
+\item Range. The range of \textsf{asString} is \textsf{xsd:string}.
+\item Structural Tautology. An \textsf{Instruction} may have a string representation.
+\item Subclass. Every \textsf{DescriptionInstruction} is an \textsf{Instruction}.
+\item Scoped Range. The range of \textsf{contributesTo} is \textsf{SituationDescription}, scoped by \textsf{DescriptionInstruction}.
+\item Scoped Range. The range of \textsf{hasPreSituationDescription} is \textsf{SituationDescription}, scoped by \textsf{TransitionInstruction}.
+\item Scoped Range. The range of \textsf{hasPostSituationDescription} is \textsf{SituationDescription}, scoped by \textsf{TransitionInstruction}.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{ISR-MATBExperiment}
+\label{ssec:isrmatbexperiment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=.8\textwidth]{resources/ISR-MATBExperiment.pdf}
+\end{center}
+\caption{Schema Diagram for the \textsf{ISR-MATBExperiment} module.}
+\label{fig:experiment}
+\end{figure}
+
+\subsubsection*{Axioms:}
+
+\begin{align}
+\top &\sqsubseteq \forall\textsf{affords.Affordance} \\
+\textsf{ISR-MATBTask} &\sqsubseteq \mathord{\geq}1~\textsf{hasInstruction.Instruction} \\
+\textsf{ISR-MATBExperiment} &\sqsubseteq \mathord{\leq}4~\textsf{hasTask.ISR-MATBTask} \\
+\top &\sqsubseteq \forall \textsf{hasLocation.Location} \\
+\top &\sqsubseteq \forall \textsf{hasName.xsd:string} \\
+\textsf{ISR-MATBTask} &\sqsubseteq \mathord{=}1~\textsf{hasName.xsd:string} \\
+\textsf{ISR-MATBTask} &\sqsubseteq \forall\textsf{providesRole.ItemRole} \\
+\textsf{ISR-MATBTask} &\sqsubseteq \forall\textsf{informs.ISR-MATBTask}
+\end{align}
+
+\subsubsection*{Explanation of axioms above:}
+
+\begin{enumerate}
+\item Range. The range of \textsf{affords} is \textsf{Affordance}.
+\item Minimum Cardinality. An \textsf{ISR-MATBTask} has at least one \textsf{Instruction}.
+\item Maximum Cardinality. An \textsf{ISR-MATBExperiment} consists of at most four \textsf{ISR-MATBTasks}.
+\item Range. The range of \textsf{hasLocation} is \textsf{Location}.
+\item Range. The range of \textsf{hasName} is \textsf{xsd:string}.
+\item Scoped Range. The range of \textsf{providesRole} is \textsf{ItemRole} when the domain is \textsf{ISR-MATBTask}.
+\item Scoped Range. The range of \textsf{informs} is \textsf{ISR-MATBTask} when the domain is \textsf{ISR-MATBTask}.
+
+\end{enumerate}
+
+\subsubsection*{Notes}
+\begin{enumerate}
+\item Should there be an existential for \textsf{affords}?
+\item What is the difference between Location and Quadrant?
+\item \textsf{hasName} should probably not point to a string.
+\item The \textsf{providesRole} axiomatization is, at best, incomplete.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{ItemRole}
+\label{ssec:itemrole}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=.8\textwidth]{resources/ItemRole.pdf}
+\end{center}
+\caption{Schema Diagram for the \textsf{ItemRole} module.}
+\label{fig:itemrole}
+\end{figure}
+
+\subsubsection*{Axioms:}
+
+\begin{align}
+\textsf{ISR-MATBTask} &\sqsubseteq \forall\textsf{providesRole.ItemRole} \\
+\top &\sqsubseteq \forall \textsf{hasItemRoleType.ItemRoleType} \\
+\textsf{ItemRole} &\sqsubseteq \forall\textsf{assumedBy.Item} \\
+\textsf{ItemRole} &\sqsubseteq \exists\textsf{assumedBy.Item}
+\end{align}
+
+\subsubsection*{Explanation of axioms above:}
+
+\begin{enumerate}
+\item Scoped Range. The range of \textsf{providesRole} is \textsf{ItemRole} when the domain is \textsf{ISR-MATBTask}.
+\item Range. The range of \textsf{hasItemRoleType} is \textsf{ItemRoleType}.
+\item Scoped Range. \textsf{ItemRoles} are \textsf{assumedBy} \textsf{Items}.
+\item Existential. Every \textsf{ItemRole} is \textsf{assumedBy} an \textsf{Item}.
+\end{enumerate}
+
+\subsubsection*{Notes}
+\begin{enumerate}
+\item The \textsf{providesRole} axiomatization is, at best, incomplete.
+\item Is an \textsf{ItemRole} always assumed by exactly one \textsf{Item}? I assume so.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{SituationDescription}
+\label{ssec:situationdescription}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=.8\textwidth]{resources/SituationDescription.pdf}
+\end{center}
+\caption{Schema Diagram for the \textsf{SituationDescription} module.}
+\label{fig:sitdesc}
+\end{figure}
+
+\subsubsection*{Axioms:}
+
+\begin{align}
+\textsf{SituationDescription} &\sqsubseteq \forall \textsf{hasCurrentCondition.}(\textsf{RelativeCondition}\sqcup\textsf{ItemDescription}) \\
+\textsf{SituationDescription} &\sqsubseteq \forall \textsf{hasEarlierCondition.ItemDescription} \\
+\top &\sqsubseteq \forall\textsf{hasRelativeConditionType.RelativeConditionType} \\
+\textsf{RelativeCondition} &\sqsubseteq \forall \textsf{hasFirstItem.ItemDescription} \\
+\textsf{RelativeCondition} &\sqsubseteq \forall \textsf{hasSecondItem.ItemDescription} \\
+\textsf{ItemDescription} &\sqsubseteq \forall \textsf{ofItem.Item} \\
+\textsf{ItemDescription} &\sqsubseteq \mathord{=}1~\textsf{isPresent.xsd:boolean} \\
+\top &\sqsubseteq \forall\textsf{refersToItemLocation.LocationType} \\
+\top &\sqsubseteq \forall\textsf{refersToItemColor.ColorType} \\
+\top &\sqsubseteq \forall\textsf{refersToShapeType.ShapeType} \\
+\top &\sqsubseteq \forall\textsf{refersToItemType.ItemType} \\
+\textsf{ItemDescription} &\sqsubseteq \mathord{\geq}0~\textsf{refersToItemLocation.LocationType} \\
+\textsf{ItemDescription} &\sqsubseteq \mathord{\geq}0~\textsf{refersToItemColor.ColorType} \\
+\textsf{ItemDescription} &\sqsubseteq \mathord{\geq}0~\textsf{refersToItemShape.ShapeType} \\
+\textsf{ItemDescription} &\sqsubseteq \mathord{\geq}0~\textsf{refersToItemType.ItemType} \\
+\top &\sqsubseteq \forall \textsf{hasItemName.xsd:string} \\
+\exists\textsf{hasItemName.}\top &\sqsubseteq \textsf{Item}
+\end{align}
+
+\subsubsection*{Explanation of axioms above:}
+
+\begin{enumerate}
+\item Scoped Range. The range of hasCurrentCondition is a RelativeCondition or ItemDescription when the domain is SituationDescription.
+\item Scoped Range. The range of hasEarlierCondition is ItemDescription when the domain is SituationDescription.
+\item Range. The range of hasRelativeConditionType is RelativeConditionType.
+\item Scoped Range. The range of hasFirstItem is ItemDescription when the domain is RelativeCondition.
+\item Scoped Range. The range of hasSecondItem is ItemDescription when the domain is RelativeCondition.
+\item Scoped Range. The range of ofItem is Item when the domain is ItemDescription.
+\item Scoped Range. An ItemDescription has exactly one boolean flag indicating whether or not it is present.
+\item Range. The range of refersToItemLocation is LocationType.
+\item Range. The range of refersToItemColor is ColorType.
+\item Range. The range of refersToItemShape is ShapeType.
+\item Range. The range of refersToItemType is ItemType.
+\item Structural Tautology. An ItemDescription may refer to a LocationType.
+\item Structural Tautology. An ItemDescription may refer to a ColorType.
+\item Structural Tautology. An ItemDescription may refer to a ShapeType.
+\item Structural Tautology. An ItemDescription may refer to an ItemType.
+\item Range. The range of hasItemName is xsd:string.
+\item Domain Restriction. The domain of hasItemName is restricted to Items.
+\end{enumerate}
+
+
+

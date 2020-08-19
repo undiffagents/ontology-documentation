@@ -1,0 +1,149 @@
+\setlrmarginsandblock{1in}{1in}{*}
+\setulmarginsandblock{1in}{1in}{*}
+\checkandfixthelayout
+
+\usepackage{graphicx}
+
+\usepackage{soul,xcolor}
+
+\usepackage{mathtools,amssymb}
+\allowdisplaybreaks[1]
+\usepackage{url}
+\usepackage{paralist}
+\usepackage{hyperref}
+\usepackage{parskip}
+\tightlists
+
+% \renewcommand*\familydefault{\sfdefault}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\linespread{1.025}
+\let\oldtextlangle\textlangle
+\renewcommand{\textlangle}{{\fontfamily{pxr}\selectfont\oldtextlangle}}
+\let\oldtextrangle\textrangle
+\renewcommand{\textrangle}{{\fontfamily{pxr}\selectfont\oldtextrangle}}
+
+% \usepackage[euler-digits,small]{eulervm}
+% \AtBeginDocument{\renewcommand{\hbar}{\hslash}}
+
+\setverbatimfont{\sffamily}
+
+\renewcommand{\theequation}{\arabic{equation}}
+
+\newlength{\drop}% for my convenience
+\newcommand*{\titleBWF}{\begingroup% Beowulf
+\drop = 0.1\textheight
+\parindent=0pt
+\vspace*{\drop}
+{\Huge\bfseries An Ontology of Instruction 1.0}\\
+[\baselineskip]
+%Early draft, do not distribute
+
+\vspace*{0.5\drop}
+{\Large {\itshape Contributors:}}\\
+{\large {\scshape Cogan Shimizu} --- Kansas State University \\
+{\scshape Pascal Hitzler} --- Kansas State University \\
+{\scshape Aaron Eberhart} --- Kansas State University \\
+{\scshape Quinn Hirt} --- Wright State University\\
+{\scshape Christopher Stevens} --- Air Force Research Laboratory\\
+{\scshape Christopher W. Myers} --- Air Force Research Laboratory\\
+{\scshape Benji Maruyama} --- Air Force Research Laboratory\\
+{\scshape Colin Kupitz} --- Oak Ridge Institute for Science and Education\\
+{\scshape Dario Salvucci} --- Drexel University}\\
+%{\scshape please provide names and affiliations of everybody else who should be listed}\\[\baselineskip]
+
+{\large {\itshape Document Date:} \today}
+
+\vfill
+
+{This material is based upon work supported by the Air Force Office of Scientific Research under award numbers FA9550-18-1-0386 and FA9550-18-1-0371.} %complete with AFRL award number when/if received
+
+
+% \vfill
+% \plogo\\[0.2\baselineskip]
+% {\Large\itshape The Publisher}
+% \vspace*{\drop}
+\endgroup}
+
+%% Setup for page layout and style
+\setsecnumdepth{subsubsection}
+% \settocdepth{section}
+\maxtocdepth{section}
+\chapterstyle{tandh}
+\pagestyle{simple}
+
+%% shorcuts
+\newcommand{\dom}{\mathsf{dom}}
+\newcommand{\ran}{\mathsf{range}}
+\newcommand{\card}{\mathsf{card}}
+\newcommand\la{\text{\textlangle}}
+\newcommand\ra{\text{\textrangle}}
+\newcommand{\equ}{\mathord{=}}
+\newcommand{\gte}{\mathord{\geqslant}}
+\newcommand{\lte}{\mathord{\leqslant}}
+\newcommand{\ordcolon}{\mathord{:}}
+\newcommand{\underscore}{\_}
+\newcommand{\Self}{\mathsf{Self}}
+\newcommand{\haskey}{\operatorname{\mathsf{\underline{haskey}}}}
+
+%% namespace shortcuts
+\newcommand{\xsd}{xsd{\operatorname{:}}}
+\newcommand{\rdf}{rdf{\operatorname{:}}}
+\newcommand{\rdfs}{rdfs{\operatorname{:}}}
+\newcommand{\dcterms}{dcterms{\operatorname{:}}}
+\newcommand{\owltime}{time{\operatorname{:}}}
+\newcommand{\owltimeIRI}{http://www.w3.org/2006/time\#}
+\newcommand{\owl}{owl{\operatorname{:}}}
+\newcommand{\org}{org{\operatorname{:}}}
+\newcommand{\foaf}{foaf{\operatorname{:}}}
+
+\newcommand{\geolinkdev}{http://schema.geolink.org/dev/}
+\newcommand{\geolinkone}{http://schema.geolink.org/1.0/}
+\newcommand{\geolink}{\geolinkdev}
+
+\newcommand{\geolinkvocdev}{http://schema.geolink.org/voc/dev/}
+\newcommand{\geolinkvocone}{http://schema.geolink.org/voc/1.0/}
+\newcommand{\geolinkvoc}{\geolinkvocdev}
+
+
+%% Class and property name shorcuts
+%% Used across patterns
+\newcommand{\owlThing}{\mathsf{\owl Thing}}
+\newcommand{\xsdstring}{\mathsf{\xsd string}}
+\newcommand{\xsddecimal}{\mathsf{\xsd decimal}}
+\newcommand{\xsdfloat}{\mathsf{\xsd float}}
+\newcommand{\xsddouble}{\mathsf{\xsd double}}
+\newcommand{\xsdanyuri}{\mathsf{\xsd anyURI}}
+\newcommand{\rdfPlainLiteral}{\mathsf{\rdf PlainLiteral}}
+\newcommand{\rdfsseeAlso}{\mathsf{\rdfs seeAlso}}
+\newcommand{\owltimeInstant}{\mathsf{\owltime Instant}}
+\newcommand{\owltimeInterval}{\mathsf{\owltime Interval}}
+\newcommand{\owltimeTemporalEntity}{\mathsf{\owltime TemporalEntity}}
+
+\newcommand{\TimeInstant}{\mathsf{TimeInstant}}
+\newcommand{\TimeEntity}{\mathsf{TimeEntity}}
+
+\newcommand{\timeOccurs}{\mathsf{occursAtTime}}
+\newcommand{\timeStarts}{\mathsf{startsAtTime}}
+\newcommand{\timeEnds}{\mathsf{endsAtTime}}
+\newcommand{\dateOccurs}{\mathsf{occursOnDate}}
+\newcommand{\dateStarts}{\mathsf{startsOnDate}}
+\newcommand{\dateEnds}{\mathsf{endsOnDate}}
+\newcommand{\monthOccurs}{\mathsf{occursInMonth}}
+\newcommand{\monthStarts}{\mathsf{startsInMonth}}
+\newcommand{\monthEnds}{\mathsf{endsInMonth}}
+\newcommand{\yearOccurs}{\mathsf{occursInYear}}
+\newcommand{\yearStarts}{\mathsf{startsInYear}}
+\newcommand{\yearEnds}{\mathsf{endsInYear}}
+
+\newcommand{\occursAtPlace}{\mathsf{occursAtPlace}}
+
+\newcommand{\hasLiteralValue}{\mathsf{hasLiteralValue}}
+\newcommand{\hasValue}{\mathsf{hasValue}}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End: 
