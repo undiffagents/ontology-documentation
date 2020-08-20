@@ -2,7 +2,6 @@
 *.bbl
 *.blg
 *.aux
-*.aux
 *.toc
 *.gz
 *.lof
