@@ -1,13 +1,13 @@
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Generic node-edge-node schema diagram for explaining systematic axiomatization}}{2}{figure.2.1}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Most common axioms which could be produced from a single edge $R$ between nodes $A$ and $B$ in a schema diagram: description logic notation.}}{3}{figure.2.2}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Most common axioms which could be produced from a single edge $R$ between nodes $A$ and $B$ in a schema diagram: Manchester syntax.}}{4}{figure.2.3}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Schema Diagram for the Action module}}{5}{figure.2.4}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Schema Diagram for the Affordance module}}{6}{figure.2.5}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Schema Diagram for the Instruction module}}{7}{figure.2.6}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Schema Diagram for the ISR-MATBExperiment module}}{8}{figure.2.7}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Schema Diagram for the ItemRole module}}{10}{figure.2.8}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Schema Diagram for the SituationDescription module}}{11}{figure.2.9}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Generic node-edge-node schema diagram for explaining systematic axiomatization.}}{2}{figure.2.1}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Most common axioms which could be produced from a single edge $R$ between nodes $A$ and $B$ in a schema diagram: description logic notation.}}{3}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Most common axioms which could be produced from a single edge $R$ between nodes $A$ and $B$ in a schema diagram: Manchester syntax.}}{4}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Schema Diagram for the \textsf {Action} module.}}{5}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Schema Diagram for the \textsf {Affordance} module.}}{6}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Schema Diagram for the \textsf {Instruction} module.}}{7}{figure.2.6}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Schema Diagram for the \textsf {ISR-MATBExperiment} module.}}{9}{figure.2.7}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Schema Diagram for the \textsf {ItemRole} module.}}{11}{figure.2.8}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Schema Diagram for the \textsf {SituationDescription} module.}}{12}{figure.2.9}%
 \addvspace {10pt}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Schema Diagram for the Enslaved Ontology.}}{13}{figure.3.1}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Schema Diagram for the combined ontology.}}{14}{figure.3.1}%
